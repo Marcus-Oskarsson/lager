@@ -3,7 +3,6 @@ import { Text, StyleSheet, View } from "react-native";
 
 import config from "../.config/config.json";
 
-//  6d5ab8aa5e88042749994cd5c2e8096a
 export default function Stock() {
   return (
     <View>
