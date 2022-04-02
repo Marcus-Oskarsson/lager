@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Stock from "./components/Stock";
 import bookcases from "./assets/bookcases.jpg";
 
-export default function App() {
+const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.base}>
@@ -16,7 +16,7 @@ export default function App() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -39,3 +39,5 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
 });
+
+export default App;

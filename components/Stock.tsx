@@ -3,16 +3,16 @@ import { Text, StyleSheet, View } from "react-native";
 
 import config from "../.config/config.json";
 
-export default function Stock() {
+const Stock = () => {
   return (
     <View>
       <Text style={styles.textHeader}>LAGERFÖRTECKNING</Text>
       <StockList />
     </View>
   );
-}
+};
 
-function StockList() {
+const StockList = () => {
   const [products, setProducts] = useState<any[]>([]);
 
   const getProducts = async () => {
@@ -33,7 +33,7 @@ function StockList() {
   ));
 
   return <View style={styles.productList}>{list}</View>;
-}
+};
 
 const styles = StyleSheet.create({
   textHeader: {
@@ -53,3 +53,5 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
 });
+
+export default Stock;
