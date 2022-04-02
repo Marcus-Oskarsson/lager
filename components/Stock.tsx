@@ -7,25 +7,14 @@ import config from "../config/config.json";
 export default function Stock() {
   return (
     <View>
-      <Text style={styles.text}>Lagerförteckning</Text>
+      <Text style={styles.textHeader}>LAGERFÖRTECKNING</Text>
       <StockList />
     </View>
   );
 }
 
-interface Product {
-  id: number;
-  article_number: string | undefined;
-  name: string;
-  description: string | undefined;
-  specifiers: string | object | undefined;
-  stock: number | undefined;
-  location: string | undefined;
-  price: number | undefined;
-}
-
 function StockList() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any[]>([]);
 
   const getProducts = async () => {
     const result = await (
@@ -38,18 +27,30 @@ function StockList() {
     getProducts();
   }, [getProducts]);
 
-  const list = products.map((product: Product, index) => (
-    <Text key={index}>
-      {product.name} - {product.stock}
+  const list = products.map((product, index) => (
+    <Text key={index} style={styles.productText}>
+      {product.name}: {product.stock}st.
     </Text>
   ));
 
-  return <View>{list}</View>;
+  return <View style={styles.productList}>{list}</View>;
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: "#333",
-    fontSize: 24,
+  textHeader: {
+    color: "#1f2484",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  productText: {
+    color: "#efefef",
+    fontSize: 14,
+    lineHeight: 10,
+    paddingVertical: 12,
+  },
+  productList: {
+    paddingBottom: 24,
   },
 });
