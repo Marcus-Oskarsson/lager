@@ -1,20 +1,22 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Text, StyleSheet, View } from "react-native";
 
 import config from "../.config/config.json";
+import Product from "../interfaces/product";
+import { Base, Typography } from "../styles";
 
-const Stock = () => {
+const Stock = ({ products, setProducts }) => {
   return (
     <View>
-      <Text style={styles.textHeader}>LAGERFÖRTECKNING</Text>
-      <StockList />
+      <Text style={{ ...Typography.header2, ...Typography.header2color }}>
+        LAGERFÖRTECKNING
+      </Text>
+      <StockList products={products} setProducts={setProducts} />
     </View>
   );
 };
 
-const StockList = () => {
-  const [products, setProducts] = useState<any[]>([]);
-
+const StockList = ({ products, setProducts }) => {
   const getProducts = async () => {
     const result = await (
       await fetch(`${config.BASE_URL}/products?api_key=${config.API_KEY}`)
@@ -26,32 +28,16 @@ const StockList = () => {
     getProducts();
   }, [getProducts]);
 
-  const list = products.map((product, index) => (
-    <Text key={index} style={styles.productText}>
+  const list = products.map((product: Product, index) => (
+    <Text
+      key={index}
+      style={{ ...Typography.normal, ...Typography.normalTextColor }}
+    >
       {product.name}: {product.stock}st.
     </Text>
   ));
 
-  return <View style={styles.productList}>{list}</View>;
+  return <View style={Base.paddingBottom}>{list}</View>;
 };
-
-const styles = StyleSheet.create({
-  textHeader: {
-    color: "#1f2484",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  productText: {
-    color: "#efefef",
-    fontSize: 14,
-    lineHeight: 10,
-    paddingVertical: 12,
-  },
-  productList: {
-    paddingBottom: 24,
-  },
-});
 
 export default Stock;
