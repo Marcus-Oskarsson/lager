@@ -1,43 +1,51 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Image, StyleSheet, Text, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
 
-import Stock from "./components/Stock";
-import bookcases from "./assets/bookcases.jpg";
+import Home from "./pages/Home";
+import Pick from "./pages/Pick";
+
+import { Base } from "./styles";
 
 const App = () => {
+  const [products, setProducts] = useState([]);
+  const Tab = createBottomTabNavigator();
+
+  const routeIcons = {
+    Lager: "home",
+    Plock: "list",
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.base}>
-        <Text style={styles.text}>Boklager för webapp</Text>
-        <Image source={bookcases} style={styles.image} />
-        <Stock />
-        <StatusBar style="light" />
-      </ScrollView>
+    <SafeAreaView style={Base.container}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = routeIcons[route.name] || "alert";
+
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: "white",
+            tabBarInactiveTintColor: "gray",
+            tabBarActiveBackgroundColor: "black",
+            tabBarInactiveBackgroundColor: "black",
+          })}
+        >
+          <Tab.Screen name="Lager">
+            {() => <Home products={products} setProducts={setProducts} />}
+          </Tab.Screen>
+          <Tab.Screen name="Plock">
+            {() => <Pick setProducts={setProducts} />}
+          </Tab.Screen>
+        </Tab.Navigator>
+      </NavigationContainer>
+      <StatusBar style="light" />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
-  image: {
-    width: 320,
-    height: 240,
-  },
-  base: {
-    flex: 1,
-    backgroundColor: "#000",
-    padding: 16,
-  },
-  text: {
-    color: "#efefef",
-    fontSize: 24,
-    marginBottom: 32,
-    marginTop: 32,
-  },
-});
 
 export default App;
