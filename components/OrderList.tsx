@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
 
 import orderModel from "../models/orders";
 import { Base, Typography } from "../styles";
@@ -40,12 +40,12 @@ const OrderList = ({ route, navigation }) => {
       );
     });
   return (
-    <View style={Base.base}>
+    <ScrollView style={Base.base}>
       <Text style={{ ...Typography.header3, ...Typography.normalTextColor }}>
         Alla ordrar
       </Text>
       {listOfOrders}
-    </View>
+    </ScrollView>
   );
 };
 

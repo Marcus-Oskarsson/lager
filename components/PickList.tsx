@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
 
 import orderModel from "../models/orders";
 import productModel from "../models/products";
@@ -56,7 +56,7 @@ export default function PickList({ route, navigation, setProducts }) {
   );
 
   return (
-    <View style={Base.base}>
+    <ScrollView style={Base.base}>
       <Text style={{ ...Typography.normal, ...Typography.normalTextColor }}>
         {order.name}
       </Text>
@@ -73,6 +73,6 @@ export default function PickList({ route, navigation, setProducts }) {
 
       {orderItemsList}
       {inStock ? btnPick : btnNotInStock}
-    </View>
+    </ScrollView>
   );
 }
