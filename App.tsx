@@ -18,7 +18,7 @@ const App = () => {
   const routeIcons = {
     Lager: "home",
     Plock: "list",
-    Inleveranser: "list",
+    Inleveranser: "receipt-outline",
   };
 
   return (
