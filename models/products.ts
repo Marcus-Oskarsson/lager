@@ -8,6 +8,13 @@ const products = {
     const result = await response.json();
     return result.data;
   },
+  getProduct: async function name(product_id) {
+    const response = await fetch(
+      `${config.BASE_URL}/products/${product_id}?api_key=${config.API_KEY}`
+    );
+    const result = await response.json();
+    return result.data;
+  },
   updateStock: async (itemOptions) => {
     const update_stock_options = {
       method: "PUT",
