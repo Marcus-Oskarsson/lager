@@ -14,6 +14,7 @@ const OrderList = ({ route, navigation }) => {
 
   if (reload) {
     reloadOrders();
+    route.params = false;
   }
 
   useEffect(() => {

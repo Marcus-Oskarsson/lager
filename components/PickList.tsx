@@ -10,10 +10,12 @@ export default function PickList({ route, navigation, setProducts }) {
   const { order } = route.params;
 
   useEffect(() => {
-    async () => {
-      setProducts(await productModel.getProducts());
-    };
+    reloadProducts();
   }, []);
+
+  const reloadProducts = async () => {
+    setProducts(await productModel.getProducts());
+  };
 
   async function pick() {
     await orderModel.pickOrder(order);
@@ -41,7 +43,7 @@ export default function PickList({ route, navigation, setProducts }) {
   }
 
   const btnPick = (
-    <TouchableOpacity style={Base.button} onPress={pick}>
+    <TouchableOpacity style={Base.buttonValid} onPress={pick}>
       <Text style={{ ...Typography.normalTextColor, ...Typography.button }}>
         Plocka order
       </Text>
