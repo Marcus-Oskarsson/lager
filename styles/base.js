@@ -20,11 +20,9 @@ export const paddingBottom = {
 };
 
 export const button = {
-  color: "efefef",
   backgroundColor: "#24a0ed",
   padding: 12,
   marginBottom: 24,
-  alignItems: "center",
 };
 
 export const buttonDisable = {
@@ -32,4 +30,19 @@ export const buttonDisable = {
   padding: 12,
   marginBottom: 24,
   alignItems: "center",
+};
+
+export const buttonValid = {
+  backgroundColor: "green",
+  padding: 12,
+  marginBottom: 24,
+};
+
+export const smallBorder = {
+  borderWidth: 2,
+  borderColor: "grey",
+};
+
+export const marginBottom = {
+  marginBottom: 14,
 };

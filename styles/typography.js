@@ -23,10 +23,20 @@ export const normalTextColor = {
 };
 
 export const header2color = {
-  color: "#1f2484",
+  color: "gold",
   fontWeight: "bold",
+};
+
+export const header3color = {
+  color: "gold",
 };
 
 export const button = {
   fontSize: 24,
+  textAlign: "center",
+};
+
+export const label = {
+  fontSize: 24,
+  fontWeight: "bold",
 };
