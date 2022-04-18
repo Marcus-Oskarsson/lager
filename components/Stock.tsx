@@ -26,7 +26,7 @@ const StockList = ({ products, setProducts }) => {
 
   useEffect(() => {
     getProducts();
-  }, [getProducts]);
+  }, []);
 
   const list = products.map((product: Product, index) => (
     <Text
