@@ -5,8 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import Home from "./pages/Home";
-import Pick from "./pages/Pick";
+import Home from "./screens/Home";
+import Pick from "./screens/Pick";
+import Deliveries from "./screens/Deliveries";
 
 import { Base } from "./styles";
 
@@ -17,6 +18,7 @@ const App = () => {
   const routeIcons = {
     Lager: "home",
     Plock: "list",
+    Inleveranser: "list",
   };
 
   return (
@@ -40,6 +42,9 @@ const App = () => {
           </Tab.Screen>
           <Tab.Screen name="Plock">
             {() => <Pick setProducts={setProducts} />}
+          </Tab.Screen>
+          <Tab.Screen name="Inleveranser">
+            {() => <Deliveries setProducts={setProducts} />}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
