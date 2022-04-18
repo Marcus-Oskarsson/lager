@@ -3,28 +3,40 @@ import { Picker } from "@react-native-picker/picker";
 
 import productModel from "../models/products";
 import Product from "../interfaces/product";
-import { Forms, Typography, Base } from "../styles/";
+import { Typography } from "../styles/";
 
 const ProductDropDown = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
   let productsHash: any = {};
 
-  useEffect(async () => {
+  const reloadProducts = async () => {
     setProducts(await productModel.getProducts());
+  };
+
+  useEffect(() => {
+    reloadProducts();
   }, []);
 
   const itemsList = products.map((prod, index) => {
     productsHash[prod.id] = prod;
-    return <Picker.Item key={index} label={prod.name} value={prod.id} />;
+    return (
+      <Picker.Item
+        key={index}
+        label={prod.name}
+        value={prod.id}
+        style={Typography.normal}
+      />
+    );
   });
 
   return (
     <Picker
-      style={{ ...Typography.normalTextColor }}
+      style={Typography.normalTextColor}
       selectedValue={props.delivery?.product_id}
       onValueChange={(itemValue) => {
         props.setDelivery({ ...props.delivery, product_id: itemValue });
         props.setCurrentProduct(productsHash[itemValue]);
+        props.checkDelivery();
       }}
     >
       {itemsList}
