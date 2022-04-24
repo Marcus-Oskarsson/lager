@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
@@ -8,18 +8,33 @@ import { Ionicons } from "@expo/vector-icons";
 import Home from "./screens/Home";
 import Pick from "./screens/Pick";
 import Deliveries from "./screens/Deliveries";
+import Auth from "./components/auth/Auth";
+
+import Product from "./interfaces/product";
+
+import authModel from "./models/auth";
 
 import { Base } from "./styles";
 
 const App = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Partial<Product[]>>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+
   const Tab = createBottomTabNavigator();
 
   const routeIcons = {
     Lager: "home",
     Plock: "list",
     Inleveranser: "receipt-outline",
+    Faktura: "mail",
+    "Logga in": "lock-closed-outline",
   };
+
+  useEffect(async () => {
+    setIsLoggedIn(
+      await authModel.loggedIn() /* Vi kommer tillbaka till denna funktion. */
+    );
+  }, []);
 
   return (
     <SafeAreaView style={Base.container}>
@@ -46,6 +61,13 @@ const App = () => {
           <Tab.Screen name="Inleveranser">
             {() => <Deliveries setProducts={setProducts} />}
           </Tab.Screen>
+          {isLoggedIn ? (
+            <Tab.Screen name="Faktura" component={Invoices} />
+          ) : (
+            <Tab.Screen name="Logga in">
+              {() => <Auth setIsLoggedIn={setIsLoggedIn} />}
+            </Tab.Screen>
+          )}
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="light" />
