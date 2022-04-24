@@ -8,8 +8,8 @@ const Login = ({ navigation, setIsLoggedIn }) => {
   const [auth, setAuth] = useState<Partial<Auth>>({});
 
   const doLogin = async () => {
-    if (auth.email & auth.password) {
-      const result = await AuthModel.loggedIn(auth.email, auth.password);
+    if (auth.email && auth.password) {
+      const result = await AuthModel.login(auth.email, auth.password);
       setIsLoggedIn(true);
     }
   };
