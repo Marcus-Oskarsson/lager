@@ -3,10 +3,10 @@ import storage from "./storage";
 
 const auth = {
   loggedIn: async function loggedIn() {
-    const tokenAndDate = storage.readToken();
+    const tokenAndDate: any = await storage.readToken();
     const twentyFourHours = 1000 * 60 * 60 * 24;
-    const notExpired = new Date().getTime() - twentyFourHours;
-    return false;
+    const notExpired = new Date().getTime() - twentyFourHours < 0;
+    return tokenAndDate.token && notExpired;
   },
   register: async function register(email: string, password: string) {
     const data = {
@@ -39,6 +39,9 @@ const auth = {
     const result = await response.json();
     await storage.storeToken(result.data.token);
     return result.data.message;
+  },
+  logut: async function logut() {
+    await storage.deleteToken();
   },
 };
 
