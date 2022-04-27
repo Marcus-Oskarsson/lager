@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Text, StyleSheet, View } from "react-native";
+import { DataTable } from "react-native-paper";
 
 import config from "../.config/config.json";
 import Product from "../interfaces/product";
@@ -37,7 +38,43 @@ const StockList = ({ products, setProducts }) => {
     </Text>
   ));
 
-  return <View style={Base.paddingBottom}>{list}</View>;
+  // NYTT:
+  const table = products.map((product: Product, index) => {
+    return (
+      <DataTable.Row key={index}>
+        <DataTable.Cell style={{ flex: 3 }}>
+          <Text style={{ ...Typography.normalTextColor, ...Typography.normal }}>
+            {product.name}
+          </Text>
+        </DataTable.Cell>
+        <DataTable.Cell style={{ flex: 1 }}>
+          <Text style={{ ...Typography.normalTextColor, ...Typography.normal }}>
+            {product.stock}
+          </Text>
+        </DataTable.Cell>
+      </DataTable.Row>
+    );
+  });
+
+  return (
+    <DataTable style={Base.paddingBottom}>
+      <DataTable.Header>
+        <DataTable.Title style={{ flex: 3 }}>
+          <Text style={{ ...Typography.normalTextColor, ...Typography.normal }}>
+            Produkt
+          </Text>
+        </DataTable.Title>
+        <DataTable.Title style={{ flex: 1 }}>
+          <Text style={{ ...Typography.normalTextColor, ...Typography.normal }}>
+            Antal
+          </Text>
+        </DataTable.Title>
+      </DataTable.Header>
+      {table}
+    </DataTable>
+  );
+
+  // return <View style={Base.paddingBottom}>{list}</View>;
 };
 
 export default Stock;
