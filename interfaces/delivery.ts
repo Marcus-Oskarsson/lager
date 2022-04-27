@@ -1,5 +1,3 @@
-import Specifiers from "./specifiers";
-
 interface Delivery {
   product_id: number;
   amount: number;
