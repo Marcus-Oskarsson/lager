@@ -22,6 +22,9 @@ const storage = {
       console.log(e);
     }
   },
+  deleteToken: async function deleteToken() {
+    await AsyncStorage.removeItem("@token");
+  },
 };
 
 export default storage;
