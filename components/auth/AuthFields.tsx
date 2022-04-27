@@ -1,12 +1,48 @@
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Typography, Forms, Base } from "../../styles";
 
 const AuthFields = ({ auth, setAuth, title, sumbit, navigation }) => {
-  return (
-    <View>
-      <Text>{title}</Text>
+  const allFields = () => {
+    return auth.email && auth.password;
+  };
 
-      <Text>E-post</Text>
+  const buttonDeliveryValid = (
+    <TouchableOpacity
+      onPress={() => {
+        sumbit({ ...auth });
+      }}
+    >
+      <View style={Base.buttonValid}>
+        <Text style={{ ...Typography.normalTextColor, ...Typography.button }}>
+          Logga in
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+  const buttonDeliveryInvalid = (
+    <TouchableOpacity
+      onPress={() => {
+        sumbit({ ...auth });
+      }}
+      disabled
+    >
+      <View style={Base.buttonDisable}>
+        <Text style={{ ...Typography.normalTextColor, ...Typography.button }}>
+          Fyll i dina uppgifter
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  return (
+    <View style={Base.base}>
+      <Text style={{ ...Typography.header2, ...Typography.header2color }}>
+        {title}
+      </Text>
+
+      <Text style={{ ...Typography.normal, ...Typography.normalTextColor }}>
+        E-post
+      </Text>
       <TextInput
         onChangeText={(content: string) => {
           setAuth({ ...auth, email: content });
@@ -16,9 +52,12 @@ const AuthFields = ({ auth, setAuth, title, sumbit, navigation }) => {
         autoCapitalize="none"
         autoCompleteType="email" // eller off
         autoCorrect={false}
+        style={{ ...Forms.input, ...Typography.normalTextColor }}
       />
 
-      <Text>Lösenord</Text>
+      <Text style={{ ...Typography.normal, ...Typography.normalTextColor }}>
+        Lösenord
+      </Text>
       <TextInput
         onChangeText={(content: string) => {
           setAuth({ ...auth, password: content });
@@ -28,20 +67,24 @@ const AuthFields = ({ auth, setAuth, title, sumbit, navigation }) => {
         autoCapitalize="none"
         autoCompleteType="off"
         autoCorrect={false}
+        style={{ ...Forms.input, ...Typography.normalTextColor }}
       />
-      <Button
-        title={title}
-        onPress={() => {
-          sumbit({ ...auth });
-        }}
-      />
+      {allFields() ? buttonDeliveryValid : buttonDeliveryInvalid}
+
       {title === "Logga in" && (
-        <Button
-          title="Registrera"
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("Register");
           }}
-        />
+        >
+          <View style={Base.button}>
+            <Text
+              style={{ ...Typography.normalTextColor, ...Typography.button }}
+            >
+              Registrera
+            </Text>
+          </View>
+        </TouchableOpacity>
       )}
     </View>
   );
