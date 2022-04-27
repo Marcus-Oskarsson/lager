@@ -1,5 +1,6 @@
 import config from "../.config/config.json";
 import OrderItem from "../interfaces/orderItem";
+import Order from "../interfaces/order";
 import productModel from "./products";
 
 const orders = {
@@ -31,6 +32,24 @@ const orders = {
         id,
         name,
         status_id: 200,
+        api_key: config.API_KEY,
+      }),
+    };
+    await fetch(`${config.BASE_URL}/orders`, options);
+  },
+  updateOrder: async function updateOrder(
+    order: Partial<Order>,
+    statusId: number
+  ) {
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: order.id,
+        name: order.name,
+        status_id: statusId,
         api_key: config.API_KEY,
       }),
     };
