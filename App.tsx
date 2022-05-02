@@ -10,6 +10,7 @@ import Pick from "./screens/Pick";
 import Deliveries from "./screens/Deliveries";
 import Auth from "./components/auth/Auth";
 import Invoices from "./components/invoices/Invoices";
+import Ship from "./components/ship/Ship";
 
 import Product from "./interfaces/product";
 
@@ -29,6 +30,7 @@ const App = () => {
     Inleveranser: "receipt-outline",
     Faktura: "mail",
     "Logga in": "lock-closed-outline",
+    Skicka: "archive",
   };
 
   useEffect(async () => {
@@ -71,6 +73,7 @@ const App = () => {
               {() => <Auth setIsLoggedIn={setIsLoggedIn} />}
             </Tab.Screen>
           )}
+          <Tab.Screen name="Skicka" component={Ship} />
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="light" />
