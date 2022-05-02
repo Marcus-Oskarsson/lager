@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Platform, Text, View, TouchableOpacity } from "react-native";
 
@@ -12,10 +12,6 @@ const DateDropDown = (props) => {
   const showDatePicker = () => {
     setShow(true);
   };
-
-  useEffect(() => {
-    props.checkDelivery();
-  }, [dropDownDate]);
 
   return (
     <View>

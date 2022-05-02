@@ -36,7 +36,6 @@ const ProductDropDown = (props) => {
       onValueChange={(itemValue) => {
         props.setDelivery({ ...props.delivery, product_id: itemValue });
         props.setCurrentProduct(productsHash[itemValue]);
-        props.checkDelivery();
       }}
     >
       {itemsList}

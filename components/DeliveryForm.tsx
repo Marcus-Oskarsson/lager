@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -21,24 +21,33 @@ const DeliveryForm = ({ navigation }) => {
   const [currentProduct, setCurrentProduct] = useState<Partial<Product>>({});
   const [validDelivery, setValidDelivery] = useState<boolean>(false);
 
+  useEffect(() => {
+    checkDelivery();
+  }, [delivery]);
+
   const checkDelivery = () => {
     if (
       delivery.product_id !== undefined &&
       delivery.delivery_date !== undefined &&
-      delivery.amount !== undefined
+      delivery.amount !== undefined &&
+      delivery.amount > 0
     ) {
       setValidDelivery(true);
+    } else {
+      setValidDelivery(false);
     }
   };
 
   const handleCommentUpdate = (text: string) => {
     setDelivery({ ...delivery, comment: text });
-    checkDelivery();
   };
 
   const handleAmountUpdate = (x: string) => {
-    setDelivery({ ...delivery, amount: parseInt(x) });
-    checkDelivery();
+    if (isNaN(parseInt(x))) {
+      setDelivery({ ...delivery, amount: 0 });
+    } else {
+      setDelivery({ ...delivery, amount: parseInt(x) });
+    }
   };
 
   const addDelivery = async () => {
@@ -92,7 +101,11 @@ const DeliveryForm = ({ navigation }) => {
       <TextInput
         style={{ ...Forms.input, ...Typography.normalTextColor }}
         onChangeText={handleAmountUpdate}
-        value={delivery?.amount?.toString() ? delivery.amount.toString() : "0"}
+        value={
+          delivery?.amount?.toString() === "0"
+            ? ""
+            : delivery?.amount?.toString()
+        }
         keyboardType="numeric"
       />
       <Text style={{ ...Typography.label, ...Typography.normalTextColor }}>
@@ -102,16 +115,11 @@ const DeliveryForm = ({ navigation }) => {
         delivery={delivery}
         setDelivery={setDelivery}
         setCurrentProduct={setCurrentProduct}
-        checkDelivery={checkDelivery}
       />
       <Text style={{ ...Typography.label, ...Typography.normalTextColor }}>
         Datum för inleverans
       </Text>
-      <DateDropDown
-        delivery={delivery}
-        setDelivery={setDelivery}
-        checkDelivery={checkDelivery}
-      />
+      <DateDropDown delivery={delivery} setDelivery={setDelivery} />
       {validDelivery ? buttonDeliveryValid : buttonDeliveryInvalid}
     </ScrollView>
   );
