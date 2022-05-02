@@ -32,7 +32,7 @@ const InvoiceForm = ({ route, navigation }) => {
     setInvoice({ ...invoice, total_price: totalSum() });
     await invoiceModel.addInvoice(invoice);
     await orderModel.updateOrder(currentOrder, 600);
-    console.log(invoice);
+    navigation.navigate("List", { reload: true });
   };
 
   const buttonDeliveryValid = (
