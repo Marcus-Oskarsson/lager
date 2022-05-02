@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity } from "react-native";
 
 import orderModel from "../models/orders";
+import Order from "../interfaces/order";
 import { Base, Typography } from "../styles";
 
 const OrderList = ({ route, navigation }) => {
   let { reload } = route.params || false;
-  const [allOrders, setAllOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState<Partial<Order[]>>([]);
 
   async function reloadOrders() {
     setAllOrders(await orderModel.getOrders());
